@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Fruit {
+protected:
+    string name;
+
+public:
+    Fruit(string n) : name(n) {}
+
+    string getname() {
+        return name;
+    }
+};
+
+class Apple : public Fruit {
+public:
+    Apple(string n) : Fruit(n) {}
+
+    bool is_red() {
+        // в названии яблока есть слово "Красное"
+        return (name.find("Красное") != string::npos);
+    }
+};
+
+int main() {
+    // Создание объекта класса "Яблоко"
+    Apple apple1("Красное яблоко");
+    Apple apple2("Яблоко");
+
+    // Проверка, является ли яблоко красным
+    cout << "Яблоко 1 - красное: " << (apple1.is_red() ? "Да" : "Нет") << endl;
+    cout << "Яблоко 2 - красное: " << (apple2.is_red() ? "Да" : "Нет") << endl;
+
+    return 0;
+}

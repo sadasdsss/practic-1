@@ -1,0 +1,129 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+class Shape {
+public:
+    virtual double calculate_area() = 0;
+    virtual double calculate_perimeter() = 0;
+};
+
+class Rectangle : public Shape {
+private:
+    double width;
+    double height;
+
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+
+    double calculate_area() override {
+        return width * height;
+    }
+
+    double calculate_perimeter() override {
+        return 2 * (width + height);
+    }
+
+    double calculate_diagonal() {
+        return sqrt(width * width + height * height);
+    }
+
+    bool is_square() {
+        return width == height;
+    }
+};
+
+class Triangle : public Shape {
+private:
+    double base;
+    double height;
+
+public:
+    Triangle(double b, double h) : base(b), height(h) {}
+
+    double calculate_area() override {
+        return 0.5 * base * height;
+    }
+
+    double calculate_perimeter() override {
+        double hypotenuse = sqrt(base * base + height * height);
+        return base + height + hypotenuse;
+    }
+
+    double calculate_height() {
+        return (2 * calculate_area()) / base;
+    }
+};
+
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    Circle(double r) : radius(r) {}
+
+    double calculate_area() override {
+        return 3.14159265359 * radius * radius;
+    }
+
+    double calculate_perimeter() override {
+        return 2 * 3.14159265359 * radius;
+    }
+};
+
+class ColoredShape : public Shape {
+private:
+    string color;
+
+public:
+    ColoredShape(string c) : color(c) {}
+
+    string get_color() {
+        return color;
+    }
+
+    void set_color(string c) {
+        color = c;
+    }
+};
+
+class ColoredRectangle : public Rectangle, public ColoredShape {
+public:
+    ColoredRectangle(double w, double h,string c) : Rectangle(w, h), ColoredShape(c) {}
+    double calculate_area() override {
+        return Rectangle::calculate_area();
+    }
+
+    double calculate_perimeter() override {
+        return Rectangle::calculate_perimeter();
+    }
+};
+
+int main() {
+
+    // Создание прямоугольника
+    Rectangle rectangle(17, 17);
+    cout << "Площадь прямоугольника: " << rectangle.calculate_area() << endl;
+    cout << "Периметр прямоугольника: " << rectangle.calculate_perimeter() << endl;
+    cout << "Является ли он квадратом? " << (rectangle.is_square() ? "Yes" : "No") << endl;
+
+    // Создание треугольника
+    Triangle triangle(4, 7);
+    cout << "Площадь треугольника: " << triangle.calculate_area() << endl;
+    cout << "Периметр треугольника: " << triangle.calculate_perimeter() << endl;
+    cout << "Высота треугольника: " << triangle.calculate_height() << endl;
+
+    // Создание круга
+    Circle circle(3);
+    cout << "Площадь круга: " << circle.calculate_area() << endl;
+    cout << "Периметр круга: " << circle.calculate_perimeter() << endl;
+
+    // Создание цветного прямоугольника
+    ColoredRectangle coloredRectangle(7, 13, "Чёрный");
+    cout << "Площадь цветного прямоугольника: " << coloredRectangle.calculate_area() << endl;
+    cout << "Пермиетр цветного прямоугольника: " << coloredRectangle.calculate_perimeter() << endl;
+    cout << "Цвет цветного прямоугольника: " << coloredRectangle.get_color() << endl;
+
+    return 0;
+}

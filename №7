@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int age;
+    double average_grade;
+
+public:
+    // Конструктор класса "Студент"
+    Student(string n, int a, double avg) : name(n), age(a), average_grade(avg) {}
+
+    // Метод для получения имени студента
+    string getname() {
+        return name;
+    }
+
+    // Метод для получения возраста студента
+    int getage() {
+        return age;
+    }
+
+    // Метод для получения среднего балла студента
+    double getaverage_grade() {
+        return average_grade;
+    }
+};
+
+class HonorStudent : public Student {
+public:
+    // Конструктор класса "Студент-отличник"
+    HonorStudent(string n, int a, double avg) : Student(n, a, avg) {}
+
+    // Метод для проверки, является ли студент-отличником
+    bool is_honor_student() {
+        return (getaverage_grade() >= 5);
+    }
+};
+
+int main() {
+    // Создание объекта класса "Студент-отличник"
+    HonorStudent honorStudent("Алёша", 21, 5);
+
+    // Проверка, является ли студент-отличником
+    if (honorStudent.is_honor_student()) {
+        cout << honorStudent.getname() << " - отличник" << endl;
+    } else {
+        cout << honorStudent.getname() << " - не отличник" << endl;
+    }
+
+    return 0;
+}

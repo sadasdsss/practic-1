@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    double salary;
+
+public:
+    // Конструктор класса "Сотрудник"
+    Employee(string n, double s) : name(n), salary(s) {}
+
+    // Метод для получения имени сотрудника
+    string getname() {
+        return name;
+    }
+
+    // Метод для получения зарплаты сотрудника
+    double getsalary() {
+        return salary;
+    }
+};
+
+class Manager : public Employee {
+public:
+    // Конструктор класса "Менеджер"
+    Manager(string n, double s) : Employee(n, s) {}
+
+    // Метод для расчета премии менеджера
+    double calculate_bonus(double bonus_percentage) {
+        // Премия вычисляется как процент от текущей зарплаты
+        return getsalary() * (bonus_percentage / 100);
+    }
+};
+
+int main() {
+    // Создание объекта класса "Сотрудник"
+    Employee employee("Иннокентий", 50000.0);
+
+    // Создание объекта класса "Менеджер"
+    Manager manager("Кирилл", 60000.0);
+
+    // Расчет премии для менеджера (10% от зарплаты)
+    double bonus = manager.calculate_bonus(10);
+
+    // Вывод информации о сотрудниках и премии менеджера
+    cout << "Сотрудник: " << employee.getname() << ", Зарплата: " << employee.getsalary() << endl;
+    cout << "Менеджер: " << manager.getname() << ", Зарплата: " << manager.getsalary() << ", Премия: " << bonus << endl;
+
+    return 0;
+}
